@@ -1,37 +1,16 @@
 const fs = require('fs')
-// Read file
-// fs.readFile('./kape.txt', (err, data)=>{
-//     if(err) console.log(err)
 
-//     console.log(data.toString())
-// })
+const readStream = fs.createReadStream('./kape.txt', {encoding: 'utf-8'})
+const writeStream = fs.createWriteStream('kape2.txt')
 
-// // 
-// // Write file
-// fs.writeFile('./kape.txt', 'Dati ka bang tangaa!!', ()=>{
-//     console.log('File was written')
-// })
+// readStream.on('data', chunk =>{
+//     console.log('-----NEW CHUNK-----')
+//     console.log(chunk)
+//     writeStream.write('\n New Chuck \n')
+//     writeStream.write(chunk, (err)=>{
 
-if(!fs.existsSync('./assets')){
-    fs.mkdir('./assets', (err)=>{
-        if(err) console.log(err)
-    
-        console.log('folder created')
-    })
-}
-// else{
-//     fs.rmdir('./assets', err=>{
-//         if(err) console.log(err)
-
-//         console.log('folder removed')
 //     })
-// }
-
-//deleting files
-if(fs.existsSync('./kape.txt')){
-    fs.unlink('./kape.txt', err =>{
-        if(err) console.log(err)
-
-        console.log('file deleted successfully')
-    })
-}
+    
+// })
+//same as the commented code above
+readStream.pipe(writeStream)

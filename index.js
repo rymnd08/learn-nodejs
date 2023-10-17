@@ -12,10 +12,12 @@ const server = http.createServer((req, res) => {
 
     res.setHeader('Content-Type', 'text/html')
 
-    const readStream = fs.createReadStream('./sample.txt', {encoding: 'utf-8'})
-    const writeStream = fs.createReadStream('./readSample.txt')
-    readStream.on('data', chunk =>{
-        writeStream()
+    fs.readFile('./sample.html', (err, data)=>{
+        if(err){
+            console.log(err)
+            res.end()
+        }
+        res.end(data)
     })
 
 })

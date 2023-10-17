@@ -4,13 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>BLOG PAGE</h1>
-    <ul>
-        <li><a href="/">HOME</a></li>
-        <li><a href="/about">ABOUT</a></li>
-        <li><a href="/sample">SAMPLE</a></li>
-    </ul>
+   
+
+    <h1>BLOG PAGE of <%= name %></h1>
+
+    <%- include('./ui/header.ejs') %>
+
+    <% if(blogs.length > 0) {%>
+        <% blogs.forEach(el =>{ %>
+            <h3><%= el.title%></h3>
+            <p><%= el.content%></p>
+        <%})%>
+    <% }%>
 </body>
 </html>

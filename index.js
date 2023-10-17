@@ -2,6 +2,7 @@ const http = require('http')
 const fs = require('fs')
 
 const server = http.createServer((req, res) => {
+
     // res.setHeader('Content-Type', 'application/json')
     // const person = {
     //     name: 'rymnd',
@@ -12,7 +13,21 @@ const server = http.createServer((req, res) => {
 
     res.setHeader('Content-Type', 'text/html')
 
-    fs.readFile('./sample.html', (err, data)=>{
+    let path = ''
+
+    switch(req.url){
+        case '/':
+            path = './index.html'
+            break
+        case '/sample':
+            path = './sample.html'
+            break
+        default:
+            path = './404.html'
+            break
+    }
+
+    fs.readFile(path, (err, data)=>{
         if(err){
             console.log(err)
             res.end()

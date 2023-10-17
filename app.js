@@ -2,18 +2,22 @@ const express = require('express')
 
 const app = express()
 
+app.set('view engine', 'ejs')
+app.set('views', 'pages')
+
+
 PORT = 3000
 app.listen(PORT)
 
 app.get('/', (req, res) => {
-    res.sendFile('./pages/index.html', { root: __dirname })
+    res.render('index')
 })
 app.get('/about', (req, res) => {
-    res.sendFile('./pages/about.html', { root: __dirname })
+    res.render('about')
 })
 app.get('/about-us', (req, res) => {
     res.redirect('/about')
 })
 app.use((req, res) => {
-    res.status(404).sendFile('./pages/404.html', { root: __dirname })
+    res.status(404).render('404')
 })

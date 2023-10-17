@@ -1,11 +1,9 @@
 const express = require('express')
 const morgan = require('morgan')
-const mysql = require('mysql')
-
-
-
 
 const app = express()
+app.use(express.json())
+
 console.log()
 app.set('view engine', 'ejs')
 app.set('views', 'pages')
@@ -18,39 +16,7 @@ app.set('views', 'pages')
 PORT = 3000
 app.listen(PORT)
 
-const con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "rms_narba"
-});
-
-let rabbits
-let users
-
-con.connect(function (err) {
-    if (err) throw err;
-    console.log('db connected')
-    con.query("SELECT * FROM `rabbit_profile_tbl`", function (err, result, fields) {
-        if (err) throw err;
-        console.log('get rabbits complete')
-        rabbits = result
-    });
-    con.query("SELECT * FROM users_tbl", function (err, result, fields) {
-        if (err) throw err;
-        console.log('get users complete')
-        users = result
-    });
-});
-
-
-
-app.get('/users', (req, res) => {
-    res.send(users)
-})
-app.get('/rabbits', (req, res) => {
-    res.send(rabbits)
-})
+app.use('/users', require('./msyql/queries'))
 
 app.get('/', (req, res) => {
     const blogs = [

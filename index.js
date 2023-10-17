@@ -18,12 +18,19 @@ const server = http.createServer((req, res) => {
     switch(req.url){
         case '/':
             path = './index.html'
+            res.statusCode = 200
             break
         case '/sample':
             path = './sample.html'
+            res.statusCode = 200
+            break
+        case '/aboutme':
+            res.statusCode = 301
+            res.setHeader('location', '/sample')
             break
         default:
             path = './404.html'
+            res.statusCode = 404
             break
     }
 
